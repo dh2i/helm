@@ -1,0 +1,17 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ template "dxemssql.fullname" $ }}-primary
+spec:
+  selector:
+    app: {{ template "dxemssql.fullname" $ }}
+  ports:
+  - name: dxlmonitor
+    protocol: TCP
+    port: 7979
+  - name: dxcmonitor-tcp
+    protocol: TCP
+    port: 7980
+  - name: dxcmonitor-udp
+    protocol: UDP
+    port: 7981
