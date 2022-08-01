@@ -54,7 +54,7 @@ questions:
     label: "Repository"
     type: string
     description: "The repository to pull the DxEnterprise image from."
-    default: "intreg.dh2i.com/dxe"
+    default: "dh2i/dxe"
     group: "DxEnterprise"
 
   - variable: dxeImage.pullPolicy
