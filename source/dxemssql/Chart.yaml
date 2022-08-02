@@ -4,6 +4,6 @@ description: "Helm chart for DH2i's DxEnterprise clustering solution with SQL Se
 type: application
 appVersion: "22.0"
 version: "0.5.2"
-icon: https://clients.dh2i.com/images/dh2i_logo_178x176.png
+icon: https://clients.dh2i.com/images/DH2i_Logo_Icon.png
 annotations:
   catalog.cattle.io/display-name: "DxEnterprise for Microsoft SQL AG"
