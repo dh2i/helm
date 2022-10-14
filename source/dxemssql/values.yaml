@@ -13,7 +13,8 @@ sqlImage:
   pullPolicy: Always
   # Overrides the image tag whose default is the chart appVersion.
   tag: "2022-latest"
-ACCEPT_EULA: "Y"
+MSSQL_PID: "Developer"
+ACCEPT_EULA: null
 MSSQL_AGENT_ENABLED: "false"
 
 #DxEnterprise settings
@@ -22,8 +23,10 @@ dxeImage:
   pullPolicy: Always
   tag: latest
 DX_LICENSE: null
+DX_ACCEPT_EULA: null
 DX_VHOST_NAME: "VHOST1"
 DX_AG_NAME: "AG1"
+DX_AG_OPTIONS: ""
 DX_NEW_CLUSTER: "true"
 
 nameOverride: ""

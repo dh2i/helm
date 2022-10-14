@@ -2,25 +2,13 @@
     "$schema": "http://json-schema.org/schema#",
     "type": "object",
     "required": [
-        "ACCEPT_EULA",
-        "DX_LICENSE",
-        "replicas",
-        "secretKeys"
+        "replicas"
     ],
     "properties": {
-        "ACCEPT_EULA": {
-            "type": "string"
-        },
-        "DX_LICENSE": {
-            "type": "string"
-        },
         "replicas": {
             "type": "integer",
             "minimum": 3,
             "maximum": 5
-        },
-        "secretKeys": {
-            "type": "string"
         }
     }
 }
