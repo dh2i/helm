@@ -6,10 +6,10 @@ entries:
       charts.openshift.io/name: DxEnterprise for Microsoft SQL AG
     apiVersion: v2
     appVersion: "22.0"
-    created: "2022-10-20T09:02:17.7187883-07:00"
+    created: "2022-10-24T10:32:12.7348995-07:00"
     description: Helm chart for DH2i's DxEnterprise clustering solution with SQL Server
       availability groups
-    digest: 77b05385b2ea46e99d86c93fb600fa7eaadd81fd6b4e9e649fb50228f4947198
+    digest: a7c240d42f0993eb846b10aed4e85852f8df8c5555b3a008dbcda97c0e01c5f3
     icon: https://clients.dh2i.com/images/DH2i_Logo_Icon.png
     kubeVersion: '>= 1.20.0'
     name: dxemssql
@@ -17,4 +17,4 @@ entries:
     urls:
     - dxemssql/dxemssql-1.0.0.tgz
     version: 1.0.0
-generated: "2022-10-20T09:02:17.7117104-07:00"
+generated: "2022-10-24T10:32:12.7343801-07:00"
