@@ -16,6 +16,9 @@ spec:
       labels:
         {{- include "dxemssql.labels" . | nindent 8 }}
     spec:
+      securityContext:
+        fsGroup: 7979
+        fsGroupChangePolicy: "OnRootMismatch"
       containers:
       - name: sql
         image: "{{ .Values.sqlImage.repository }}:{{ .Values.sqlImage.tag }}"
