@@ -1,6 +1,8 @@
 # DxEnterprise Git Repo
 
-This repository is for DxEnterprise Helm charts and other distributables provided by DH2i.
+This repository is for DxEnterprise Helm charts and other distributables provided by DH2i. 
+
+Parts of this repository reference Microsoft products and documentation. For Micorsoft container licensing information, view Microsoft's [legal notice](https://github.com/microsoft/containerregistry/blob/main/legal/Container-Images-Legal-Notice.md).
 
 ## Helm Charts
 
