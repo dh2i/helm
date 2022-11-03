@@ -2,11 +2,29 @@ apiVersion: v1
 entries:
   dxemssql:
   - annotations:
+      catalog.cattle.io/certified: partner
+      catalog.cattle.io/display-name: DxEnterprise for Microsoft SQL AG
+      catalog.cattle.io/release-name: dxemssql
+      charts.openshift.io/name: DxEnterprise for Microsoft SQL AG
+    apiVersion: v2
+    appVersion: "22.0"
+    created: "2022-11-03T15:48:48.7080467-07:00"
+    description: Helm chart for DH2i's DxEnterprise clustering solution with SQL Server
+      availability groups
+    digest: 7c06abccc415798d8e8dd0850d639f8e01a250e3dc9c27a9e3b250ccab86d100
+    icon: https://clients.dh2i.com/images/DH2i_Logo_Icon.png
+    kubeVersion: '>= 1.20.0'
+    name: dxemssql
+    type: application
+    urls:
+    - charts/dxemssql/dxemssql-1.0.1.tgz
+    version: 1.0.1
+  - annotations:
       catalog.cattle.io/display-name: DxEnterprise for Microsoft SQL AG
       charts.openshift.io/name: DxEnterprise for Microsoft SQL AG
     apiVersion: v2
     appVersion: "22.0"
-    created: "2022-10-26T16:52:07.6508882-07:00"
+    created: "2022-11-03T15:48:48.7075332-07:00"
     description: Helm chart for DH2i's DxEnterprise clustering solution with SQL Server
       availability groups
     digest: a7c240d42f0993eb846b10aed4e85852f8df8c5555b3a008dbcda97c0e01c5f3
@@ -17,4 +35,4 @@ entries:
     urls:
     - charts/dxemssql/dxemssql-1.0.0.tgz
     version: 1.0.0
-generated: "2022-10-26T16:52:07.6468885-07:00"
+generated: "2022-11-03T15:48:48.706501-07:00"
