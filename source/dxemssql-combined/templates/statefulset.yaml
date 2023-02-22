@@ -16,6 +16,8 @@ spec:
       labels:
         {{- include "dxemssql-combined.labels" . | nindent 8 }}
     spec:
+      securityContext:
+        fsGroup: 10001
       containers:
       - name: dxemssql
         image: "{{ required "You must provide a repository and image name." .Values.repository }}:{{ .Values.tag }}"
