@@ -2,18 +2,21 @@
 # This is a YAML-formatted file.
 # Declare variables to be passed into your templates.
 
-#General
+# General
+# CAUTION: Setting the replica quantity to a value less than 3 does not meet Microsoft's quorum requirements for HA. 
+# See https://support.dh2i.com/docs/kbs/sql_server/availability_groups/quorum-considerations-for-sql-server-availability-groups
+# Only set this value below 3 if you intend to assign these replicas to an existing availability group
 replicas: 3
 secretKeys: null
 enableLoadBalancers: "true"
 
-#SQL Server settings
+# SQL Server settings
 ACCEPT_EULA: null
 MSSQL_AGENT_ENABLED: "false"
 MSSQL_PID: "Developer"
 
-#DxEnterprise settings
-#See https://support.dh2i.com/docs/v22.0/guides/dxenterprise/containers/building-dxemssql-qsg for building an image
+# DxEnterprise settings
+# See https://support.dh2i.com/docs/v22.0/guides/dxenterprise/containers/building-dxemssql-qsg for building an image
 repository: null
 pullPolicy: Always
 tag: latest
