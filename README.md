@@ -8,4 +8,4 @@ Parts of this repository reference Microsoft products and documentation. For Mic
 
 This repository contains Helm chart source files and tarballs for DxEnterprise + SQL Server sidecar container deployment in Kubernetes. Required variables can be found in the `values.yaml` or `questions.yml` files in the source directory.
 
-For more in-depth information and walk-throughs for DxEnterprise StatefulSets, see [DH2i Kubernetes guides](https://support.dh2i.com/docs/category/guides/dxenterprise/containers/kubernetes).
+For more in-depth information and walk-throughs for DxEnterprise StatefulSets, see [DH2i Kubernetes guides](http://support.dh2i.com/docs/guides/dxenterprise/containers/kubernetes/).
