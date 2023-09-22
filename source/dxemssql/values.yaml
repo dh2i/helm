@@ -9,6 +9,7 @@
 replicas: 3
 secretKeys: null
 enableLoadBalancers: "true"
+serviceAccount: null
 
 # SQL Server settings
 sqlImage:
@@ -16,21 +17,23 @@ sqlImage:
   pullPolicy: Always
   # Overrides the image tag whose default is the chart appVersion.
   tag: "2022-latest"
-MSSQL_PID: "Developer"
-ACCEPT_EULA: null
-MSSQL_AGENT_ENABLED: "false"
+  env:
+    MSSQL_PID: "Developer"
+    ACCEPT_EULA: null
+    MSSQL_AGENT_ENABLED: "false"
 
 # DxEnterprise settings
 dxeImage:
   repository: docker.io/dh2i/dxe
   pullPolicy: Always
   tag: latest
-DX_LICENSE: null
-DX_ACCEPT_EULA: null
-DX_VHOST_NAME: "VHOST1"
-DX_AG_NAME: "AG1"
-DX_AG_OPTIONS: ""
-DX_NEW_CLUSTER: "true"
+  env:
+    DX_LICENSE: null
+    DX_ACCEPT_EULA: null
+    DX_VHOST_NAME: "VHOST1"
+    DX_AG_NAME: "AG1"
+    DX_AG_OPTIONS: ""
+    DX_NEW_CLUSTER: "true"
 
 nameOverride: ""
 fullnameOverride: ""

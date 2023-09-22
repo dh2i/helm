@@ -16,6 +16,9 @@ spec:
       labels:
         {{- include "dxemssql.labels" . | nindent 8 }}
     spec:
+      {{- if .Values.serviceAccount }}
+      serviceAccount: {{.Values.serviceAccount}}
+      {{- end }}
       securityContext:
         fsGroup: 10001
       containers:
@@ -23,19 +26,36 @@ spec:
         image: "{{ .Values.sqlImage.repository }}:{{ .Values.sqlImage.tag }}"
         imagePullPolicy: {{ .Values.sqlImage.pullPolicy }}
         env:
-        - name: ACCEPT_EULA
-          value: {{ required "You must accept the SQL Server EULA." .Values.ACCEPT_EULA | upper | quote }}
-        - name: MSSQL_AGENT_ENABLED
-          value: {{ .Values.MSSQL_AGENT_ENABLED | quote }}
         - name: MSSQL_ENABLE_HADR
           value: "1"
-        - name: MSSQL_PID
-          value: {{ .Values.MSSQL_PID | quote }}
         - name: MSSQL_SA_PASSWORD
           valueFrom:
             secretKeyRef:
               name: {{ required "You must provide a secret key that contains MSSQL_SA_PASSWORD and DX_PASSKEY." .Values.secretKeys }}
               key: MSSQL_SA_PASSWORD
+        {{- if or (.Values.ACCEPT_EULA) (.Values.MSSQL_AGENT_ENABLED) (.Values.MSSQL_PID) }}
+        # Maintain backwards compatibility with old way of providing enivronment variables
+        # Default to using these values if they exist, otherwise, use the new env
+        - name: ACCEPT_EULA
+          value: {{ required "You must accept the SQL Server EULA." .Values.ACCEPT_EULA | upper | quote }}
+        - name: MSSQL_PID
+          value: {{ required "You must provide a PID for SQL Server." .Values.MSSQL_PID | quote }}
+        {{- if .Values.MSSQL_AGENT_ENABLED }}
+        - name: MSSQL_AGENT_ENABLED
+          value: {{ .Values.MSSQL_AGENT_ENABLED | quote }}
+        {{- end }}
+        {{- else }}
+        {{- if not .Values.sqlImage.env.ACCEPT_EULA }}
+        {{- fail "You must accept the SQL Server EULA." }}
+        {{- end }}
+        {{- if not .Values.sqlImage.env.MSSQL_PID }}
+        {{- fail "You must provide a PID for SQL Server."}}
+        {{- end }}
+        {{- range $k, $v := .Values.sqlImage.env }}
+        - name: {{ $k }}
+          value: {{ $v }}
+        {{- end }}
+        {{- end }}
         readinessProbe:
           initialDelaySeconds: 5
           periodSeconds: 5
@@ -49,10 +69,6 @@ spec:
         image: "{{ .Values.dxeImage.repository }}:{{ .Values.dxeImage.tag }}"
         imagePullPolicy: {{ .Values.dxeImage.pullPolicy }}
         env:
-        - name: DX_LICENSE
-          value: {{ required "DxEnterprise license key is required." .Values.DX_LICENSE | upper | quote }}
-        - name: DX_ACCEPT_EULA
-          value: {{ required "You must accept the DxEnterprise EULA." .Values.DX_ACCEPT_EULA | lower | quote }}
         - name: DX_OTPK
           valueFrom:
             secretKeyRef:
@@ -64,19 +80,44 @@ spec:
             secretKeyRef:
               name: {{ required "You must provide a secret key that contains MSSQL_SA_PASSWORD and DX_PASSKEY." .Values.secretKeys }}
               key: DX_PASSKEY
-        - name: DX_VHOST_NAME
-          value: {{ .Values.DX_VHOST_NAME | upper | quote }}
-        - name: DX_AG_NAME
-          value: {{ .Values.DX_AG_NAME | upper | quote }}
-        - name: DX_AG_OPTIONS
-          value: {{ .Values.DX_AG_OPTIONS | quote }}
-        - name: DX_NEW_CLUSTER
-          value: {{ .Values.DX_NEW_CLUSTER | lower | quote }}
         - name: MSSQL_SA_PASSWORD
           valueFrom:
             secretKeyRef:
               name: {{ .Values.secretKeys }}
               key: MSSQL_SA_PASSWORD
+        {{- if or (.Values.DX_LICENSE) (.Values.DX_ACCEPT_EULA) (.Values.DX_VHOST_NAME) (.Values.DX_AG_NAME) (.Values.DX_AG_OPTIONS) (.Values.DX_NEW_CLUSTER) }}
+        - name: DX_LICENSE
+          value: {{ required "DxEnterprise license key is required." .Values.DX_LICENSE | upper | quote }}
+        - name: DX_ACCEPT_EULA
+          value: {{ required "You must accept the DxEnterprise EULA." .Values.DX_ACCEPT_EULA | lower | quote }}
+        {{- if .Values.DX_VHOST_NAME }}
+        - name: DX_VHOST_NAME
+          value: {{ .Values.DX_VHOST_NAME | upper | quote }}
+        {{- end }}
+        {{- if .Values.DX_AG_NAME }}
+        - name: DX_AG_NAME
+          value: {{ .Values.DX_AG_NAME | upper | quote }}
+        {{- end }}
+        {{- if .Values.DX_AG_OPTIONS }}
+        - name: DX_AG_OPTIONS
+          value: {{ .Values.DX_AG_OPTIONS | quote }}
+        {{- end }}
+        {{- if .Values.DX_NEW_CLUSTER }}
+        - name: DX_NEW_CLUSTER
+          value: {{ .Values.DX_NEW_CLUSTER | lower | quote }}
+        {{- end }}
+        {{- else }}
+        {{- if not .Values.dxeImage.env.DX_LICENSE }}
+        {{- fail "DxEnterprise license key is required." }}
+        {{- end }}
+        {{- if not .Values.dxeImage.env.DX_ACCEPT_EULA }}
+        {{- fail "You must accept the DxEnterprise EULA." }}
+        {{- end }}
+        {{- range $k, $v := .Values.dxeImage.env }}
+        - name: {{ $k }}
+          value: {{ $v }}
+        {{- end }}
+        {{- end }}       
         readinessProbe:
           initialDelaySeconds: 10
           periodSeconds: 10
