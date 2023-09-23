@@ -9,23 +9,25 @@
 replicas: 3
 secretKeys: null
 enableLoadBalancers: "true"
-
-# SQL Server settings
-ACCEPT_EULA: null
-MSSQL_AGENT_ENABLED: "false"
-MSSQL_PID: "Developer"
+serviceAccount: null
 
 # DxEnterprise settings
 # See https://support.dh2i.com/docs/v22.0/guides/dxenterprise/containers/building-dxemssql-qsg for building an image
 repository: null
 pullPolicy: Always
 tag: latest
-DX_LICENSE: null
-DX_ACCEPT_EULA: null
-DX_VHOST_NAME: "VHOST1"
-DX_AG_NAME: "AG1"
-DX_AG_OPTIONS: ""
-DX_NEW_CLUSTER: "true"
+env:
+  # SQL Server settings
+  ACCEPT_EULA: null
+  MSSQL_AGENT_ENABLED: "false"
+  MSSQL_PID: "Developer"
+  # DxEnterprise settings
+  DX_LICENSE: null
+  DX_ACCEPT_EULA: null
+  DX_VHOST_NAME: "VHOST1"
+  DX_AG_NAME: "AG1"
+  DX_AG_OPTIONS: ""
+  DX_NEW_CLUSTER: "true"
 
 nameOverride: ""
 fullnameOverride: ""

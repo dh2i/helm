@@ -59,7 +59,7 @@ spec:
         readinessProbe:
           initialDelaySeconds: 5
           periodSeconds: 5
-          failureThreshold: 12
+          failureThreshold: 24
           tcpSocket:
             port: 1433
         volumeMounts:
@@ -121,7 +121,7 @@ spec:
         readinessProbe:
           initialDelaySeconds: 10
           periodSeconds: 10
-          failureThreshold: 12
+          failureThreshold: 30
           exec:
             command:
             - sh
