@@ -18,13 +18,18 @@ questions:
   description: "Enable or disable automatic provisioning of an external load balancer for each replica in the StatefulSet."
   required: true
   group: General
-- variable: DX_LICENSE
+- variable: serviceAccount
+  label: "Service Account"
+  type: string
+  description: "The service account to use for the pod."
+  group: General
+- variable: dxeImage.env.DX_LICENSE
   label: "License Key"
   type: string
   description: "The license key for DxEnterprise."
   required: true
   group: "DxEnterprise"
-- variable: DX_ACCEPT_EULA
+- variable: dxeImage.env.DX_ACCEPT_EULA
   label: "Accept EULA"
   type: enum
   default: "N"
@@ -34,24 +39,24 @@ questions:
   options:
   - "Y"
   - "N"
-- variable: DX_VHOST_NAME
+- variable: dxeImage.env.DX_VHOST_NAME
   label: "Vhost Name"
   type: string
   description: "The name of the Vhost that the availability group will be created under."
   default: "VHOST1"
   group: "DxEnterprise"
-- variable: DX_AG_NAME
+- variable: dxeImage.env.DX_AG_NAME
   label: "Availability Group Name"
   type: string
   description: "The name that will be given to the availability group."
   default: "AG1"
   group: "DxEnterprise"
-- variable: DX_AG_OPTIONS
+- variable: dxeImage.env.DX_AG_OPTIONS
   label: "Availability Group Options"
   type: string
   description: "Additional availability group options to apply during AG creation."
   group: "DxEnterprise"
-- variable: DX_NEW_CLUSTER
+- variable: dxeImage.env.DX_NEW_CLUSTER
   label: "Create a New Cluster"
   type: string
   description: "Whether or not to create a new DxEnterprise cluster, or join an existing one using the provided One-Time Passkey."
@@ -77,14 +82,14 @@ questions:
     default: "latest"
     group: "DxEnterprise"
 
-- variable: MSSQL_PID
+- variable: sqlImage.env.MSSQL_PID
   label: Edition
   type: string
   description: "The SQL Server edition (PID)."
   required: true
   default: Developer
   group: "SQL Server"
-- variable: ACCEPT_EULA
+- variable: sqlImage.env.ACCEPT_EULA
   label: "Accept EULA"
   type: enum
   default: "N"
