@@ -3,8 +3,8 @@ kubeVersion: ">= 1.20.0-0"
 name: dxemssql
 description: "Helm chart for DH2i's DxEnterprise clustering solution with SQL Server availability groups"
 type: application
-appVersion: "22.0"
-version: "1.0.4"
+appVersion: "23.0"
+version: "1.0.5"
 icon: https://raw.githubusercontent.com/dh2i/helm/main/assets/DH2i_Logo_Icon.png
 annotations:
   catalog.cattle.io/display-name: "DxEnterprise for Microsoft SQL AG"
