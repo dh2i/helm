@@ -1,0 +1,11 @@
+apiVersion: v2
+name: dxoperator
+description: DH2i operator for Kubernetes
+type: application
+version: 1.0.0
+appVersion: "1.0.57.0"
+annotations:
+  catalog.cattle.io/display-name: "DxOperator"
+  charts.openshift.io/name: "DxOperator"
+  catalog.cattle.io/release-name: dxoperator
+  catalog.cattle.io/certified: partner
