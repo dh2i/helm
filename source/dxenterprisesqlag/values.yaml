@@ -10,6 +10,7 @@ availabilityGroupName: AG1
 availabilityGroupOptions: ""
 availabilityGroupClusterType: EXTERNAL
 availabilityGroupListenerPort: 0
+createLoadBalancers: false
 
 # Other pod configuration options
 podSecurityContext: 

@@ -48,6 +48,12 @@ questions:
     options:
     - "EXTERNAL"
     - "NONE"
+  - variable: createLoadBalancers
+    label: "Create Load Balancers"
+    type: boolean
+    description: "Whether to create load balancers for each of the pods in the cluster for external access."
+    group: "Availability Group"
+    required: false
 
   # DxEnterprise section
   - variable: dxEnterpriseContainer.acceptEula
