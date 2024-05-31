@@ -1,4 +1,5 @@
 apiVersion: v2
+kubeVersion: ">= 1.26.0-0"
 name: dxoperator
 description: DH2i operator for Kubernetes
 type: application
