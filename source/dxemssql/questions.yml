@@ -61,7 +61,7 @@ questions:
   label: "Repository"
   type: string
   description: "The repository to pull the DxEnterprise image from."
-  default: "dh2i/dxe"
+  default: "docker.io/dh2i/dxe"
   group: "DxEnterprise"
   subquestions:
   - variable: dxeImage.pullPolicy

@@ -22,7 +22,7 @@ MSSQL_AGENT_ENABLED: "false"
 
 # DxEnterprise settings
 dxeImage:
-  repository: dh2i/dxe
+  repository: docker.io/dh2i/dxe
   pullPolicy: Always
   tag: latest
 DX_LICENSE: null
