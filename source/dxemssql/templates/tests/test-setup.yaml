@@ -22,8 +22,8 @@ spec:
           name: {{ .Values.secretKeys }}
           key: DX_PASSKEY
     - name: DX_VHOST_NAME
-      value: {{ .Values.DX_VHOST_NAME | upper | quote }}
+      value: {{ .Values.dxeImage.env.DX_VHOST_NAME | upper | quote }}
     - name: DX_AG_NAME
-      value: {{ .Values.DX_AG_NAME | upper | quote }}
+      value: {{ .Values.dxeImage.env.DX_AG_NAME | upper | quote }}
     command: ["/bin/bash"]
     args: ["-c", "/opt/dh2i/sbin/helm-test.sh"]

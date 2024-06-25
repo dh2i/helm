@@ -13,10 +13,9 @@ availabilityGroupListenerPort: 0
 createLoadBalancers: false
 
 # Other pod configuration options
-podSecurityContext: 
-  fsGroup: 10001
 initContainers: []
 dnsConfig: {}
+hostAliases: []
 imagePullSecrets: []
 podAnnotations: {}
 nodeSelector: {}
@@ -31,6 +30,7 @@ dxEnterpriseContainer:
   acceptEula: false
   clusterSecret: ""
   vhostName: VHOST1
+  newCluster: true
   joinTarget:
     target: ""
     useNat: false

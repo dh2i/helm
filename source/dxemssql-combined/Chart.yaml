@@ -4,8 +4,8 @@ name: dxemssql-combined
 description: "Helm chart for DH2i's DxEnterprise image combined with SQL Server availability groups"
 type: application
 appVersion: "23.0"
-version: "1.0.6"
-icon: https://raw.githubusercontent.com/dh2i/helm/main/assets/DH2i_Logo_Icon.png
+version: "1.1.0"
+icon: https://git.dh2i.com/eng/helm/-/raw/helm-update-2406/assets/dh2i-logo.svg
 annotations:
   catalog.cattle.io/display-name: "DH2i SQL Server Combined Image"
   charts.openshift.io/name: "DH2i SQL Server Combined Image"

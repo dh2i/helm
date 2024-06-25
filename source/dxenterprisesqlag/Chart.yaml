@@ -3,10 +3,10 @@ kubeVersion: ">= 1.26.0-0"
 name: dxenterprisesqlag
 description: "SQL Server AGs using DH2i DxOperator"
 type: application
-version: 1.0.2
+version: 1.0.3
 appVersion: "23.0"
-icon: https://raw.githubusercontent.com/dh2i/helm/main/assets/DH2i_Logo_Icon.png
+icon: https://git.dh2i.com/eng/helm/-/raw/helm-update-2406/assets/DxOperator.svg
 annotations:
-  catalog.cattle.io/display-name: "DxOperator - DxE + SQL Server AG"
-  charts.openshift.io/name: "DxOperator - DxE + SQL Server AG"
+  catalog.cattle.io/display-name: "DxOperator - DxEnterprise SQL AG"
+  charts.openshift.io/name: "DxOperator - DxEnterprise SQL AG"
   catalog.cattle.io/certified: partner

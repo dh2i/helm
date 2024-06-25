@@ -8,7 +8,9 @@
 # Only set this value below 3 if you intend to assign these replicas to an existing availability group
 replicas: 3
 secretKeys: null
+mssqlSecret: null
 enableLoadBalancers: true
+serviceAccount: null
 
 # SQL Server settings
 sqlImage:
@@ -16,25 +18,41 @@ sqlImage:
   pullPolicy: Always
   # Overrides the image tag whose default is the chart appVersion.
   tag: "2022-latest"
-MSSQL_PID: "Developer"
-ACCEPT_EULA: null
-MSSQL_AGENT_ENABLED: "false"
+  volumeClaimConfiguration: null
+    #the chart will assume the values below if volumeClaimConfiguration: null
+    #storageClassName: <Kubernetes default>
+    #resources:
+    #  requests:
+    #    storage: 8Gi
+
+  env:
+    MSSQL_PID: "Developer"
+    ACCEPT_EULA: false
+    MSSQL_AGENT_ENABLED: false
 
 # DxEnterprise settings
 dxeImage:
   repository: docker.io/dh2i/dxe
   pullPolicy: Always
   tag: latest
-DX_LICENSE: null
-DX_ACCEPT_EULA: null
-DX_VHOST_NAME: "VHOST1"
-DX_AG_NAME: "AG1"
-DX_AG_OPTIONS: ""
-DX_NEW_CLUSTER: true
-DX_USE_NAT: false
-DX_JOIN_TARGET: ""
+  volumeClaimConfiguration: null
+    #the chart will assume the values below if volumeClaimConfiguration: null
+    #storageClassName: <Kubernetes default>
+    #resources:
+    #  requests:
+    #    storage: 1Gi
+  env:
+    DX_ACCEPT_EULA: false
+    DX_VHOST_NAME: "VHOST1"
+    DX_AG_NAME: "AG1"
+    DX_AG_OPTIONS: ""
+    DX_NEW_CLUSTER: true
+    DX_USE_NAT: false
+    DX_JOIN_TARGET: ""
 
 nameOverride: ""
 fullnameOverride: ""
 
 podAnnotations: {}
+hostAliases: []
+dnsConfig: {}

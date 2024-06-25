@@ -20,6 +20,12 @@ questions:
     required: true
     default: 0
     group: "Availability Group"
+  - variable: createLoadBalancers
+    label: "Enable External Load Balancers"
+    type: boolean
+    description: "Whether to create load balancers for each of the pods in the cluster for external access."
+    group: "Availability Group"
+    required: false
   - variable: availabilityGroupName
     label: "Availability Group Name"
     type: string
@@ -48,12 +54,6 @@ questions:
     options:
     - "EXTERNAL"
     - "NONE"
-  - variable: createLoadBalancers
-    label: "Create Load Balancers"
-    type: boolean
-    description: "Whether to create load balancers for each of the pods in the cluster for external access."
-    group: "Availability Group"
-    required: false
 
   # DxEnterprise section
   - variable: dxEnterpriseContainer.acceptEula
@@ -93,21 +93,27 @@ questions:
     required: false
     default: VHOST1
     group: DxEnterprise
-  - variable: dxEnterpriseContainer.joinTarget.useNat
-    label: "Join using NAT matchmaker"
+  - variable: dxEnterpriseContainer.newCluster
+    label: "Create a New Cluster"
     type: boolean
-    default: false
-    description: "Enables the NAT matchmaker to find peers when forming a cluster.  Requires DX_OTPK to be set in the dxe secret."
-    required: false
-    group: DxEnterprise
-  - variable: dxEnterpriseContainer.joinTarget.target
-    label: "Join target"
-    type: string
-    default: ""
-    description: "The name or IP address of a peer DxEnterprise cluster node to join to when forming a cluster."
-    required: false
+    description: "Whether or not to create a new DxEnterprise cluster, or join an existing one using the provided One-Time Passkey."
+    default: true
+    show_subquestions_if: false
     group: "DxEnterprise"
-  
+    subquestions:
+    - variable: dxEnterpriseContainer.joinTarget.useNat
+      label: "Join using NAT matchmaker"
+      type: boolean
+      default: false
+      show_subquestions_if: false
+      description: "Enables the NAT matchmaker to find peers when forming a cluster.  Requires DX_OTPK to be set in the cluster secret."
+      subquestions:
+      - variable: dxEnterpriseContainer.joinTarget.target
+        label: "Join target"
+        type: string
+        default: ""
+        description: "The name or IP address of a peer DxEnterprise cluster node to join to when forming a cluster."
+
   # SQL Server section
   - variable: sqlServerContainer.acceptEula
     label: "Accept EULA"

@@ -11,42 +11,46 @@ spec:
   availabilityGroupName: {{ .Values.availabilityGroupName }}
   availabilityGroupOptions: {{ .Values.availabilityGroupOptions }}
   availabilityGroupClusterType: {{ .Values.availabilityGroupClusterType }}
-  {{ if .Values.availabilityGroupListenerPort }}
+  {{- if .Values.availabilityGroupListenerPort }}
   availabilityGroupListenerPort: {{ .Values.availabilityGroupListenerPort }}
-  {{ end }}
+  {{- end }}
   createLoadBalancers: {{ .Values.createLoadBalancers }}
   template:
     metadata:
       annotations:
-        {{- toYaml .Values.podAnnotations | nindent 8 }}
+{{ toYaml .Values.podAnnotations | nindent 8 }}
     spec:
       affinity:
-        {{- toYaml .Values.affinity | nindent 8 }}
+{{ toYaml .Values.affinity | nindent 8 }}
       dnsConfig:
-        {{- toYaml .Values.dnsConfig | nindent 8 }}
+{{ toYaml .Values.dnsConfig | nindent 8 }}
+      hostAliases:
+{{ toYaml .Values.hostAliases | nindent 8 }}
       imagePullSecrets:
-        {{- toYaml .Values.imagePullSecrets | nindent 8 }}
+{{ toYaml .Values.imagePullSecrets | nindent 8 }}
       initContainers:
-        {{- toYaml .Values.initContainers | nindent 8 }}
+{{ toYaml .Values.initContainers | nindent 8 }}
       nodeSelector:
-        {{- toYaml .Values.nodeSelector | nindent 8 }}
+{{ toYaml .Values.nodeSelector | nindent 8 }}
       tolerations:
-        {{- toYaml .Values.tolerations | nindent 8 }}
+{{ toYaml .Values.tolerations | nindent 8 }}
       securityContext:
-        {{- toYaml .Values.podSecurityContext | nindent 8 }}
+{{ toYaml .Values.podSecurityContext | nindent 8 }}
       dxEnterpriseContainer:
         image: "{{ .Values.dxEnterpriseContainer.repository }}:{{ .Values.dxEnterpriseContainer.tag | default .Chart.AppVersion }}"
         imagePullPolicy: {{ .Values.dxEnterpriseContainer.pullPolicy }}
         acceptEula: {{ .Values.dxEnterpriseContainer.acceptEula }}
         clusterSecret: {{ .Values.dxEnterpriseContainer.clusterSecret }}
         vhostName: {{ .Values.dxEnterpriseContainer.vhostName }}
+        {{- if or .Values.dxEnterpriseContainer.joinTarget.target .Values.dxEnterpriseContainer.joinTarget.useNat }}
         joinTarget:
           target: {{ .Values.dxEnterpriseContainer.joinTarget.target }}
           useNat: {{ .Values.dxEnterpriseContainer.joinTarget.useNat }}
+        {{- end }}
         volumeClaimConfiguration:
-          {{- toYaml .Values.dxEnterpriseContainer.volumeClaimConfiguration | nindent 10 }}
+{{ toYaml .Values.dxEnterpriseContainer.volumeClaimConfiguration | nindent 10 }}
         resources: 
-          {{- toYaml .Values.dxEnterpriseContainer.resources | nindent 10 }}
+{{ toYaml .Values.dxEnterpriseContainer.resources | nindent 10 }}
       mssqlServerContainer:
         image: "{{ .Values.sqlServerContainer.repository }}:{{ .Values.sqlServerContainer.tag }}"
         imagePullPolicy: {{ .Values.sqlServerContainer.pullPolicy }}
@@ -54,9 +58,9 @@ spec:
         acceptEula: {{ .Values.sqlServerContainer.acceptEula }}
         mssqlPID: {{ .Values.sqlServerContainer.mssqlPID }}
         volumeClaimConfiguration:
-          {{- toYaml .Values.sqlServerContainer.volumeClaimConfiguration | nindent 10 }}
+{{ toYaml .Values.sqlServerContainer.volumeClaimConfiguration | nindent 10 }}
         resources: 
-          {{- toYaml .Values.sqlServerContainer.resources | nindent 10 }}
-        {{ if .Values.mssqlConfigMap }}
+{{ toYaml .Values.sqlServerContainer.resources | nindent 10 }}
+        {{- if .Values.mssqlConfigMap }}
         mssqlConfigMap: "mssqlconf-{{ .Release.Name }}"
-        {{ end }}  
+        {{- end }}

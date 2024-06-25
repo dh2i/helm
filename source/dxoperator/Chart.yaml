@@ -3,9 +3,9 @@ kubeVersion: ">= 1.26.0-0"
 name: dxoperator
 description: DH2i operator for Kubernetes
 type: application
-version: 1.0.2
+version: 1.0.3
 appVersion: "1.0.67.0"
-icon: https://raw.githubusercontent.com/dh2i/helm/main/assets/DH2i_Logo_Icon.png
+icon: https://git.dh2i.com/eng/helm/-/raw/helm-update-2406/assets/DxOperator.svg
 annotations:
   catalog.cattle.io/display-name: "DxOperator"
   charts.openshift.io/name: "DxOperator"
