@@ -64,7 +64,7 @@ spec:
               name: {{ required "You must provide a secret key that contains MSSQL_SA_PASSWORD and DX_PASSKEY." .Values.secretKeys }}
               key: MSSQL_SA_PASSWORD
         {{- end }}
-        {{- range $v := list "MSSQL_AGENT_ENABLED" "MSSQL_ENABLE_AHDR" "MSSQL_PID" "ACCEPT_EULA" }}
+        {{- range $v := list "MSSQL_AGENT_ENABLED" "MSSQL_ENABLE_HADR" "MSSQL_PID" "ACCEPT_EULA" }}
         {{- if not (and $.Values.sqlImage.env (hasKey $.Values.sqlImage.env $v)) }}
         {{- if hasKey $.Values $v }}
         - name: {{ $v | quote }}
@@ -133,9 +133,23 @@ spec:
           value: {{ $v | toString | quote }}
           {{- end }}
         {{- end }}
+        {{- if not (and $.Values.dxeImage.env (hasKey $.Values.dxeImage.env "MSSQL_SA_PASSWORD")) }}
+        {{- if (and $.Values.sqlImage.env (hasKey $.Values.sqlImage.env "MSSQL_SA_PASSWORD")) }}
+        - name: MSSQL_SA_PASSWORD
+          # Get the SA password from the mssql environment
+          value: {{ get $.Values.sqlImage.env "MSSQL_SA_PASSWORD" | toString | quote }}
+        {{- else if $.Values.mssqlSecret }}
+        - name: MSSQL_SA_PASSWORD
+          # Get the SA password from the mssql secret
+          valueFrom:
+            secretKeyRef:
+              name: {{ .Values.mssqlSecret }}
+              key: MSSQL_SA_PASSWORD
+        {{- end }}
+        {{- end }}
         envFrom:
         - secretRef:
-            name: {{ required "You must provide a secret key that contains MSSQL_SA_PASSWORD and DX_PASSKEY." .Values.secretKeys }}
+            name: {{ required "You must provide a secret key that contains DX_PASSKEY." .Values.secretKeys }}
             optional: false
         readinessProbe:
           initialDelaySeconds: 10
