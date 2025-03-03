@@ -7,11 +7,11 @@ entries:
       charts.openshift.io/name: DxEnterprise for Microsoft SQL AG
     apiVersion: v2
     appVersion: "23.0"
-    created: "2025-02-28T13:44:53.8502452-08:00"
+    created: "2025-03-03T06:42:31.1531818-08:00"
     description: Helm chart for DH2i's DxEnterprise clustering solution with SQL Server
       availability groups
-    digest: 5e3a167655c99cdfd6a3692b5730527ffb02110307b2a29619f0a3369a6283c7
-    icon: https://git.dh2i.com/eng/helm/-/raw/helm-update-2406/assets/dh2i-logo.svg
+    digest: 4120d8d30d70b961d0a9e44f555718bca3647e89b52cf9b696f6758767169a49
+    icon: https://raw.githubusercontent.com/dh2i/helm/main/assets/dh2i-logo.svg
     kubeVersion: '>= 1.20.0-0'
     name: dxemssql
     type: application
@@ -148,11 +148,11 @@ entries:
       charts.openshift.io/name: DH2i SQL Server Combined Image
     apiVersion: v2
     appVersion: "23.0"
-    created: "2025-02-28T13:56:54.8370968-08:00"
+    created: "2025-03-03T06:42:31.6059009-08:00"
     description: Helm chart for DH2i's DxEnterprise image combined with SQL Server
       availability groups
-    digest: becd25d222a181cd849e7e0e4923445c15e139e0e90edd55d2e320c8832c55d9
-    icon: https://git.dh2i.com/eng/helm/-/raw/helm-update-2406/assets/dh2i-logo.svg
+    digest: 252eced42e9dbb5d48523257861eedbe2af57fb936a481d3f5e166a54b882911
+    icon: https://raw.githubusercontent.com/dh2i/helm/main/assets/dh2i-logo.svg
     kubeVersion: '>= 1.20.0-0'
     name: dxemssql-combined
     type: application
@@ -262,10 +262,10 @@ entries:
       charts.openshift.io/name: DxOperator - DxEnterprise SQL AG
     apiVersion: v2
     appVersion: "23.0"
-    created: "2024-07-03T13:58:53.191956-07:00"
+    created: "2025-03-03T06:42:32.0592325-08:00"
     description: SQL Server AGs using DH2i DxOperator
-    digest: 8cec6cf7f4953f2d333cebdf50fc5f9f97a9f1408525d4803508a9525497c0ca
-    icon: https://git.dh2i.com/eng/helm/-/raw/helm-update-2406/assets/DxOperator.svg
+    digest: ecb1e76cf3e1af62bcc70374027aea51f28c10c320f49b7c26f0b6bd9306513d
+    icon: https://raw.githubusercontent.com/dh2i/helm/main/assets/DxOperator.svg
     kubeVersion: '>= 1.26.0-0'
     name: dxenterprisesqlag
     type: application
@@ -327,10 +327,10 @@ entries:
       charts.openshift.io/name: DxOperator
     apiVersion: v2
     appVersion: 1.0.67.0
-    created: "2024-07-03T13:33:21.1486346-07:00"
+    created: "2025-03-03T06:42:32.5173505-08:00"
     description: DH2i operator for Kubernetes
-    digest: a7daa8a1a44c5a5b4b4d39352569fc4d036aab648c676f0985984b382d03c3cd
-    icon: https://git.dh2i.com/eng/helm/-/raw/helm-update-2406/assets/DxOperator.svg
+    digest: f16edcb307825ee14a8f5d504eeae8ae3630d2a492686616529d9eecc7c000a4
+    icon: https://raw.githubusercontent.com/dh2i/helm/main/assets/DxOperator.svg
     kubeVersion: '>= 1.26.0-0'
     name: dxoperator
     type: application
@@ -385,4 +385,4 @@ entries:
     urls:
     - charts/dxoperator/dxoperator-1.0.0.tgz
     version: 1.0.0
-generated: "2025-02-28T13:56:54.8365483-08:00"
+generated: "2025-03-03T06:42:32.5168111-08:00"

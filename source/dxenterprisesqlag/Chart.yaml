@@ -5,7 +5,7 @@ description: "SQL Server AGs using DH2i DxOperator"
 type: application
 version: 1.0.3
 appVersion: "23.0"
-icon: https://git.dh2i.com/eng/helm/-/raw/helm-update-2406/assets/DxOperator.svg
+icon: https://raw.githubusercontent.com/dh2i/helm/main/assets/DxOperator.svg
 annotations:
   catalog.cattle.io/display-name: "DxOperator - DxEnterprise SQL AG"
   charts.openshift.io/name: "DxOperator - DxEnterprise SQL AG"

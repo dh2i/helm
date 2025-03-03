@@ -5,7 +5,7 @@ description: "Helm chart for DH2i's DxEnterprise clustering solution with SQL Se
 type: application
 appVersion: "23.0"
 version: "1.1.0"
-icon: https://git.dh2i.com/eng/helm/-/raw/helm-update-2406/assets/dh2i-logo.svg
+icon: https://raw.githubusercontent.com/dh2i/helm/main/assets/dh2i-logo.svg
 annotations:
   catalog.cattle.io/display-name: "DxEnterprise for Microsoft SQL AG"
   charts.openshift.io/name: "DxEnterprise for Microsoft SQL AG"
