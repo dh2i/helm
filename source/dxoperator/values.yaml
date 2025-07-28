@@ -12,6 +12,7 @@ imagePullSecrets: []
 nameOverride: ""
 fullnameOverride: ""
 podAnnotations: {}
+clusterDomain:
 
 resources: {}
   # limits:

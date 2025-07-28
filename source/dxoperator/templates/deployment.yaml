@@ -49,6 +49,10 @@ spec:
           valueFrom:
             fieldRef:
               fieldPath: metadata.namespace
+        {{- if .Values.clusterDomain }}
+        - name: CLUSTER_DOMAIN
+          value: "{{ .Values.clusterDomain | toString }}"
+        {{- end }}
         envFrom:
         - configMapRef:
             name: dxoperator-webhook-config-ght4ttc5g7

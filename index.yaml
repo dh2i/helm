@@ -326,6 +326,23 @@ entries:
       catalog.cattle.io/release-name: dxoperator
       charts.openshift.io/name: DxOperator
     apiVersion: v2
+    appVersion: 1.0.76.0
+    created: "2025-07-28T12:26:25.4134472-07:00"
+    description: DH2i operator for Kubernetes
+    digest: dd7db3a80751b846c1819050187c1ada51ebbe1c9ac31425d3defc28a61722ed
+    icon: https://raw.githubusercontent.com/dh2i/helm/main/assets/DxOperator.svg
+    kubeVersion: '>= 1.26.0-0'
+    name: dxoperator
+    type: application
+    urls:
+    - charts/dxoperator/dxoperator-1.0.4.tgz
+    version: 1.0.4
+  - annotations:
+      catalog.cattle.io/certified: partner
+      catalog.cattle.io/display-name: DxOperator
+      catalog.cattle.io/release-name: dxoperator
+      charts.openshift.io/name: DxOperator
+    apiVersion: v2
     appVersion: 1.0.67.0
     created: "2025-03-03T06:42:32.5173505-08:00"
     description: DH2i operator for Kubernetes
@@ -385,4 +402,4 @@ entries:
     urls:
     - charts/dxoperator/dxoperator-1.0.0.tgz
     version: 1.0.0
-generated: "2025-03-03T06:42:32.5168111-08:00"
+generated: "2025-07-28T12:26:25.4128668-07:00"
