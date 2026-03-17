@@ -2,19 +2,16 @@ apiVersion: apiextensions.k8s.io/v1
 kind: CustomResourceDefinition
 metadata:
   labels:
-    operator: dxoperator
+    operator: dxoperator-v2
     operator-element: crd
-  name: dxenterprisesqlags.dh2i.com
+  name: dxsqlags.dh2i.com
 spec:
   group: dh2i.com
   names:
-    kind: DxEnterpriseSqlAg
-    listKind: DxEnterpriseSqlAgList
-    plural: dxenterprisesqlags
-    singular: dxenterprisesqlag
-    shortNames:
-    - dxesqlag
-    - dxesqlags
+    kind: DxSqlAg
+    listKind: DxSqlAgList
+    plural: dxsqlags
+    singular: dxsqlag
   scope: Namespaced
   versions:
   - name: v1
@@ -22,72 +19,271 @@ spec:
       openAPIV3Schema:
         properties:
           spec:
-            description: Specification of the kubernetes object.
             properties:
-              asynchronousReplicas:
-                description: The quantity of asynchronous availability group replicas
-                exclusiveMaximum: false
-                exclusiveMinimum: false
-                format: int32
-                maximum: 9
-                minimum: 0
-                type: integer
-              availabilityGroupClusterType:
-                description: 'The cluster type of the availability group. Valid values
-                  are ''NONE'' or ''EXTERNAL''. Default: EXTERNAL'
-                type: string
-              availabilityGroupListenerPort:
-                description: The listener port for the availability group
-                exclusiveMaximum: false
-                exclusiveMinimum: false
-                format: int32
-                maximum: 65535
-                minimum: 1
-                type: integer
-              availabilityGroupName:
-                description: 'The name of the availability group as it will appear
-                  in SQL Server and DxEnterprise. Default: AG1'
-                type: string
-              availabilityGroupOptions:
-                description: Additional configuration options for this availability
-                  group, such as 'CONTAINED'
-                type: string
-              configurationOnlyReplicas:
-                description: The quantity of configuration-only availability group
-                  replicas
-                exclusiveMaximum: false
-                exclusiveMinimum: false
-                format: int32
-                maximum: 1
-                minimum: 0
-                type: integer
-              createLoadBalancers:
-                description: Whether or not to create load balancers for external
-                  access to the Kubernetes pods
-                type: boolean
-              synchronousReplicas:
-                description: 'The quantity of synchronous availability group replicas.
-                  Default: 1'
-                exclusiveMaximum: false
-                exclusiveMinimum: false
-                format: int32
-                maximum: 5
-                minimum: 0
-                type: integer
-              template:
+              serviceTemplates:
+                description: An array of service templates keyed by name
+                items:
+                  properties:
+                    allocateLoadBalancerNodePorts:
+                      nullable: true
+                      type: boolean
+                    externalTrafficPolicy:
+                      nullable: true
+                      type: string
+                    internalTrafficPolicy:
+                      nullable: true
+                      type: string
+                    ipFamilies:
+                      items:
+                        type: string
+                      nullable: true
+                      type: array
+                    ipFamilyPolicy:
+                      nullable: true
+                      type: string
+                    loadBalancerClass:
+                      nullable: true
+                      type: string
+                    metadata:
+                      properties:
+                        annotations:
+                          additionalProperties:
+                            type: string
+                          nullable: true
+                          type: object
+                        labels:
+                          additionalProperties:
+                            type: string
+                          nullable: true
+                          type: object
+                      type: object
+                    name:
+                      type: string
+                    perServiceCustomizations:
+                      description: An array of per-service configuration overrides.
+                        Used when a service created by a serviceTemplate needs specific
+                        customizations. Keyed by 'name' - the full name of the service,
+                        e.g. '{templateName}-{podName}'
+                      items:
+                        properties:
+                          clusterIP:
+                            nullable: true
+                            type: string
+                          clusterIPs:
+                            items:
+                              type: string
+                            nullable: true
+                            type: array
+                          externalIPs:
+                            items:
+                              type: string
+                            nullable: true
+                            type: array
+                          externalName:
+                            nullable: true
+                            type: string
+                          healthCheckNodePort:
+                            format: int32
+                            nullable: true
+                            type: integer
+                          loadBalancerIP:
+                            nullable: true
+                            type: string
+                          loadBalancerSourceRanges:
+                            items:
+                              type: string
+                            nullable: true
+                            type: array
+                          metadata:
+                            nullable: true
+                            properties:
+                              annotations:
+                                additionalProperties:
+                                  type: string
+                                nullable: true
+                                type: object
+                              labels:
+                                additionalProperties:
+                                  type: string
+                                nullable: true
+                                type: object
+                            type: object
+                          name:
+                            description: The full name of the service ({templateName}-{podName})
+                              e.g. 'lb-dxsqlag-0'
+                            type: string
+                          ports:
+                            items:
+                              properties:
+                                appProtocol:
+                                  type: string
+                                name:
+                                  type: string
+                                nodePort:
+                                  format: int32
+                                  nullable: true
+                                  type: integer
+                                port:
+                                  format: int32
+                                  type: integer
+                                protocol:
+                                  type: string
+                                targetPort:
+                                  x-kubernetes-int-or-string: true
+                              type: object
+                            nullable: true
+                            type: array
+                        required:
+                        - name
+                        type: object
+                      nullable: true
+                      type: array
+                    ports:
+                      items:
+                        properties:
+                          appProtocol:
+                            type: string
+                          name:
+                            type: string
+                          nodePort:
+                            format: int32
+                            nullable: true
+                            type: integer
+                          port:
+                            format: int32
+                            type: integer
+                          protocol:
+                            type: string
+                          targetPort:
+                            x-kubernetes-int-or-string: true
+                        type: object
+                      nullable: true
+                      type: array
+                    publishNotReadyAddresses:
+                      nullable: true
+                      type: boolean
+                    selector:
+                      additionalProperties:
+                        type: string
+                      nullable: true
+                      type: object
+                    sessionAffinity:
+                      nullable: true
+                      type: string
+                    sessionAffinityConfig:
+                      nullable: true
+                      properties:
+                        clientIP:
+                          properties:
+                            timeoutSeconds:
+                              format: int32
+                              nullable: true
+                              type: integer
+                          type: object
+                      type: object
+                    type:
+                      nullable: true
+                      type: string
+                  required:
+                  - name
+                  type: object
+                nullable: true
+                type: array
+              sqlAgConfiguration:
+                properties:
+                  asynchronousReplicas:
+                    description: The quantity of asynchronous availability group replicas
+                    exclusiveMaximum: false
+                    exclusiveMinimum: false
+                    format: int32
+                    maximum: 9
+                    minimum: 0
+                    type: integer
+                  availabilityGroupClusterType:
+                    description: 'The cluster type of the availability group. Valid
+                      values are ''NONE'' or ''EXTERNAL''. Default: EXTERNAL'
+                    type: string
+                  availabilityGroupListenerPort:
+                    description: The listener port for the availability group.
+                    exclusiveMaximum: false
+                    exclusiveMinimum: false
+                    format: int32
+                    maximum: 65535
+                    minimum: 1
+                    type: integer
+                  availabilityGroupName:
+                    description: 'The name of the availability group as it will appear
+                      in SQL Server and DxEnterprise. Default: AG1'
+                    type: string
+                  availabilityGroupOptions:
+                    description: Additional configuration options for this availability
+                      group, such as 'CONTAINED'
+                    nullable: true
+                    type: string
+                  configurationOnlyReplicas:
+                    description: The quantity of configuration-only availability group
+                      replicas
+                    exclusiveMaximum: false
+                    exclusiveMinimum: false
+                    format: int32
+                    maximum: 1
+                    minimum: 0
+                    type: integer
+                  createLoadBalancers:
+                    description: Generates a load balancer template - used by the
+                      operator - to create load balancers for external access to the
+                      Kubernetes pods.
+                    type: boolean
+                  disableModeSwitching:
+                    description: Disables automatic availability mode switching when
+                      scaling the sync/async StatefulSet
+                    type: boolean
+                  disableTunnels:
+                    description: Disables the creation of tunnels for the AG database
+                      mirroring endpoints.
+                    type: boolean
+                  synchronousReplicas:
+                    description: 'The quantity of synchronous availability group replicas.
+                      Default: 3'
+                    exclusiveMaximum: false
+                    exclusiveMinimum: false
+                    format: int32
+                    maximum: 5
+                    minimum: 0
+                    type: integer
+                type: object
+              statefulSetSpec:
+                description: The configuration for the DxSqlAg StatefulSet
                 properties:
                   metadata:
+                    nullable: true
                     properties:
                       annotations:
+                        additionalProperties:
+                          type: string
+                        nullable: true
                         type: object
-                        x-kubernetes-preserve-unknown-fields: true
                       labels:
+                        additionalProperties:
+                          type: string
+                        nullable: true
                         type: object
-                        x-kubernetes-preserve-unknown-fields: true
                     type: object
-                  spec:
+                  persistentVolumeClaimRetentionPolicy:
+                    nullable: true
+                    properties:
+                      whenDeleted:
+                        type: string
+                      whenScaled:
+                        type: string
+                    type: object
+                  podManagementPolicy:
+                    nullable: true
+                    type: string
+                  podSpec:
                     properties:
                       affinity:
+                        nullable: true
                         properties:
                           nodeAffinity:
                             properties:
@@ -190,6 +386,14 @@ spec:
                                                 type: string
                                               type: object
                                           type: object
+                                        matchLabelKeys:
+                                          items:
+                                            type: string
+                                          type: array
+                                        mismatchLabelKeys:
+                                          items:
+                                            type: string
+                                          type: array
                                         namespaceSelector:
                                           properties:
                                             matchExpressions:
@@ -245,6 +449,14 @@ spec:
                                             type: string
                                           type: object
                                       type: object
+                                    matchLabelKeys:
+                                      items:
+                                        type: string
+                                      type: array
+                                    mismatchLabelKeys:
+                                      items:
+                                        type: string
+                                      type: array
                                     namespaceSelector:
                                       properties:
                                         matchExpressions:
@@ -301,6 +513,14 @@ spec:
                                                 type: string
                                               type: object
                                           type: object
+                                        matchLabelKeys:
+                                          items:
+                                            type: string
+                                          type: array
+                                        mismatchLabelKeys:
+                                          items:
+                                            type: string
+                                          type: array
                                         namespaceSelector:
                                           properties:
                                             matchExpressions:
@@ -356,6 +576,14 @@ spec:
                                             type: string
                                           type: object
                                       type: object
+                                    matchLabelKeys:
+                                      items:
+                                        type: string
+                                      type: array
+                                    mismatchLabelKeys:
+                                      items:
+                                        type: string
+                                      type: array
                                     namespaceSelector:
                                       properties:
                                         matchExpressions:
@@ -428,16 +656,7 @@ spec:
                                           containerName:
                                             type: string
                                           divisor:
-                                            properties:
-                                              format:
-                                                enum:
-                                                - DecimalExponent
-                                                - BinarySI
-                                                - DecimalSI
-                                                type: string
-                                              value:
-                                                type: string
-                                            type: object
+                                            type: string
                                           resource:
                                             type: string
                                         type: object
@@ -512,6 +731,12 @@ spec:
                                         scheme:
                                           type: string
                                       type: object
+                                    sleep:
+                                      properties:
+                                        seconds:
+                                          format: int64
+                                          type: integer
+                                      type: object
                                     tcpSocket:
                                       properties:
                                         host:
@@ -549,6 +774,12 @@ spec:
                                         scheme:
                                           type: string
                                       type: object
+                                    sleep:
+                                      properties:
+                                        seconds:
+                                          format: int64
+                                          type: integer
+                                      type: object
                                     tcpSocket:
                                       properties:
                                         host:
@@ -557,6 +788,8 @@ spec:
                                           x-kubernetes-int-or-string: true
                                       type: object
                                   type: object
+                                stopSignal:
+                                  type: string
                               type: object
                             livenessProbe:
                               properties:
@@ -716,6 +949,15 @@ spec:
                                   nullable: true
                                   type: integer
                               type: object
+                            resizePolicy:
+                              items:
+                                properties:
+                                  resourceName:
+                                    type: string
+                                  restartPolicy:
+                                    type: string
+                                type: object
+                              type: array
                             resources:
                               properties:
                                 claims:
@@ -723,20 +965,33 @@ spec:
                                     properties:
                                       name:
                                         type: string
+                                      request:
+                                        type: string
                                     type: object
                                   type: array
                                 limits:
+                                  additionalProperties:
+                                    type: string
                                   type: object
-                                  x-kubernetes-preserve-unknown-fields: true
                                 requests:
+                                  additionalProperties:
+                                    type: string
                                   type: object
-                                  x-kubernetes-preserve-unknown-fields: true
                               type: object
+                            restartPolicy:
+                              type: string
                             securityContext:
                               properties:
                                 allowPrivilegeEscalation:
                                   nullable: true
                                   type: boolean
+                                appArmorProfile:
+                                  properties:
+                                    localhostProfile:
+                                      type: string
+                                    type:
+                                      type: string
+                                  type: object
                                 capabilities:
                                   properties:
                                     add:
@@ -901,6 +1156,8 @@ spec:
                                   readOnly:
                                     nullable: true
                                     type: boolean
+                                  recursiveReadOnly:
+                                    type: string
                                   subPath:
                                     type: string
                                   subPathExpr:
@@ -910,8 +1167,10 @@ spec:
                             workingDir:
                               type: string
                           type: object
+                        nullable: true
                         type: array
                       dnsConfig:
+                        nullable: true
                         properties:
                           nameservers:
                             items:
@@ -932,6 +1191,7 @@ spec:
                             type: array
                         type: object
                       dnsPolicy:
+                        nullable: true
                         type: string
                       dxEnterpriseContainer:
                         description: The configuration for the DxEnterprise container
@@ -940,8 +1200,8 @@ spec:
                             description: Whether or not the user accepts the DxEnterprise
                               EULA
                             externalDocs:
-                              description: EULA
-                              url: https://support.dh2i.com/other/eula
+                              description: https://support.dh2i.com/other/eula
+                              url: EULA
                             type: boolean
                           clusterSecret:
                             description: 'The secret containing a DX_PASSKEY, DX_LICENSE,
@@ -978,16 +1238,7 @@ spec:
                                         containerName:
                                           type: string
                                         divisor:
-                                          properties:
-                                            format:
-                                              enum:
-                                              - DecimalExponent
-                                              - BinarySI
-                                              - DecimalSI
-                                              type: string
-                                            value:
-                                              type: string
-                                          type: object
+                                          type: string
                                         resource:
                                           type: string
                                       type: object
@@ -1003,6 +1254,7 @@ spec:
                                       type: object
                                   type: object
                               type: object
+                            nullable: true
                             type: array
                           envFrom:
                             items:
@@ -1033,16 +1285,12 @@ spec:
                             type: string
                           imagePullPolicy:
                             description: The pull policy for the DxEnterprise image
+                            nullable: true
                             type: string
-                          joinExistingCluster:
-                            description: 'DEPRECATED: Use ''joinTarget''. Whether
-                              or not to join an existing cluster. The DxEnterprise
-                              cluster will join a remote cluster using the DX_OTPK
-                              variable set in the clusterSecret'
-                            type: boolean
                           joinTarget:
                             description: The configuration for the external target
                               cluster each pod will join to.
+                            nullable: true
                             properties:
                               target:
                                 description: The target hostname, IP, or FQDN for
@@ -1061,6 +1309,7 @@ spec:
                             description: 'The readiness probe for DxEnterprise. Default:
                               initialDelay = 5, period = 10, failureThreshold = 15,
                               tcpSocket: 7979'
+                            nullable: true
                             properties:
                               exec:
                                 properties:
@@ -1130,26 +1379,39 @@ spec:
                                 type: integer
                             type: object
                           resources:
+                            nullable: true
                             properties:
                               claims:
                                 items:
                                   properties:
                                     name:
                                       type: string
+                                    request:
+                                      type: string
                                   type: object
                                 type: array
                               limits:
+                                additionalProperties:
+                                  type: string
                                 type: object
-                                x-kubernetes-preserve-unknown-fields: true
                               requests:
+                                additionalProperties:
+                                  type: string
                                 type: object
-                                x-kubernetes-preserve-unknown-fields: true
                             type: object
                           securityContext:
+                            nullable: true
                             properties:
                               allowPrivilegeEscalation:
                                 nullable: true
                                 type: boolean
+                              appArmorProfile:
+                                properties:
+                                  localhostProfile:
+                                    type: string
+                                  type:
+                                    type: string
+                                type: object
                               capabilities:
                                 properties:
                                   add:
@@ -1224,24 +1486,35 @@ spec:
                               accessModes:
                                 items:
                                   type: string
+                                nullable: true
                                 type: array
+                              metadata:
+                                nullable: true
+                                properties:
+                                  annotations:
+                                    additionalProperties:
+                                      type: string
+                                    nullable: true
+                                    type: object
+                                  labels:
+                                    additionalProperties:
+                                      type: string
+                                    nullable: true
+                                    type: object
+                                type: object
                               resources:
                                 properties:
-                                  claims:
-                                    items:
-                                      properties:
-                                        name:
-                                          type: string
-                                      type: object
-                                    type: array
                                   limits:
+                                    additionalProperties:
+                                      type: string
                                     type: object
-                                    x-kubernetes-preserve-unknown-fields: true
                                   requests:
+                                    additionalProperties:
+                                      type: string
                                     type: object
-                                    x-kubernetes-preserve-unknown-fields: true
                                 type: object
                               storageClassName:
+                                nullable: true
                                 type: string
                             type: object
                           volumeMounts:
@@ -1258,11 +1531,14 @@ spec:
                                 readOnly:
                                   nullable: true
                                   type: boolean
+                                recursiveReadOnly:
+                                  type: string
                                 subPath:
                                   type: string
                                 subPathExpr:
                                   type: string
                               type: object
+                            nullable: true
                             type: array
                         required:
                         - acceptEula
@@ -1278,6 +1554,7 @@ spec:
                             ip:
                               type: string
                           type: object
+                        nullable: true
                         type: array
                       imagePullSecrets:
                         items:
@@ -1285,6 +1562,7 @@ spec:
                             name:
                               type: string
                           type: object
+                        nullable: true
                         type: array
                       initContainers:
                         description: A list of init containers for the pod. If an
@@ -1331,16 +1609,7 @@ spec:
                                           containerName:
                                             type: string
                                           divisor:
-                                            properties:
-                                              format:
-                                                enum:
-                                                - DecimalExponent
-                                                - BinarySI
-                                                - DecimalSI
-                                                type: string
-                                              value:
-                                                type: string
-                                            type: object
+                                            type: string
                                           resource:
                                             type: string
                                         type: object
@@ -1415,6 +1684,12 @@ spec:
                                         scheme:
                                           type: string
                                       type: object
+                                    sleep:
+                                      properties:
+                                        seconds:
+                                          format: int64
+                                          type: integer
+                                      type: object
                                     tcpSocket:
                                       properties:
                                         host:
@@ -1452,6 +1727,12 @@ spec:
                                         scheme:
                                           type: string
                                       type: object
+                                    sleep:
+                                      properties:
+                                        seconds:
+                                          format: int64
+                                          type: integer
+                                      type: object
                                     tcpSocket:
                                       properties:
                                         host:
@@ -1460,6 +1741,8 @@ spec:
                                           x-kubernetes-int-or-string: true
                                       type: object
                                   type: object
+                                stopSignal:
+                                  type: string
                               type: object
                             livenessProbe:
                               properties:
@@ -1619,6 +1902,15 @@ spec:
                                   nullable: true
                                   type: integer
                               type: object
+                            resizePolicy:
+                              items:
+                                properties:
+                                  resourceName:
+                                    type: string
+                                  restartPolicy:
+                                    type: string
+                                type: object
+                              type: array
                             resources:
                               properties:
                                 claims:
@@ -1626,20 +1918,33 @@ spec:
                                     properties:
                                       name:
                                         type: string
+                                      request:
+                                        type: string
                                     type: object
                                   type: array
                                 limits:
+                                  additionalProperties:
+                                    type: string
                                   type: object
-                                  x-kubernetes-preserve-unknown-fields: true
                                 requests:
+                                  additionalProperties:
+                                    type: string
                                   type: object
-                                  x-kubernetes-preserve-unknown-fields: true
                               type: object
+                            restartPolicy:
+                              type: string
                             securityContext:
                               properties:
                                 allowPrivilegeEscalation:
                                   nullable: true
                                   type: boolean
+                                appArmorProfile:
+                                  properties:
+                                    localhostProfile:
+                                      type: string
+                                    type:
+                                      type: string
+                                  type: object
                                 capabilities:
                                   properties:
                                     add:
@@ -1804,6 +2109,8 @@ spec:
                                   readOnly:
                                     nullable: true
                                     type: boolean
+                                  recursiveReadOnly:
+                                    type: string
                                   subPath:
                                     type: string
                                   subPathExpr:
@@ -1813,7 +2120,22 @@ spec:
                             workingDir:
                               type: string
                           type: object
+                        nullable: true
                         type: array
+                      metadata:
+                        nullable: true
+                        properties:
+                          annotations:
+                            additionalProperties:
+                              type: string
+                            nullable: true
+                            type: object
+                          labels:
+                            additionalProperties:
+                              type: string
+                            nullable: true
+                            type: object
+                        type: object
                       mssqlServerContainer:
                         description: The configuration for the Microsoft SQL Server
                           container
@@ -1855,16 +2177,7 @@ spec:
                                         containerName:
                                           type: string
                                         divisor:
-                                          properties:
-                                            format:
-                                              enum:
-                                              - DecimalExponent
-                                              - BinarySI
-                                              - DecimalSI
-                                              type: string
-                                            value:
-                                              type: string
-                                          type: object
+                                          type: string
                                         resource:
                                           type: string
                                       type: object
@@ -1880,6 +2193,7 @@ spec:
                                       type: object
                                   type: object
                               type: object
+                            nullable: true
                             type: array
                           envFrom:
                             items:
@@ -1910,10 +2224,12 @@ spec:
                             type: string
                           imagePullPolicy:
                             description: The pull policy for the SQL Server image
+                            nullable: true
                             type: string
                           mssqlConfigMap:
                             description: The name of the ConfigMap that contains configuration
                               info for the mssql.conf file
+                            nullable: true
                             type: string
                           mssqlPID:
                             description: The product ID (edition) the SQL Server container
@@ -1923,10 +2239,15 @@ spec:
                             description: The secret containing the MSSQL_SA_PASSWORD
                               environment variable.
                             type: string
+                          mssqlTcpPort:
+                            description: 'The listening port for MSSQL. Default: 1433'
+                            format: int32
+                            type: integer
                           readinessProbe:
                             description: 'The readiness probe for SQL Server. Default:
                               initialDelay = 5, period = 10, failureThreshold = 60,
                               tcpSocket: 1433'
+                            nullable: true
                             properties:
                               exec:
                                 properties:
@@ -1996,29 +2317,42 @@ spec:
                                 type: integer
                             type: object
                           resources:
+                            nullable: true
                             properties:
                               claims:
                                 items:
                                   properties:
                                     name:
                                       type: string
+                                    request:
+                                      type: string
                                   type: object
                                 type: array
                               limits:
+                                additionalProperties:
+                                  type: string
                                 type: object
-                                x-kubernetes-preserve-unknown-fields: true
                               requests:
+                                additionalProperties:
+                                  type: string
                                 type: object
-                                x-kubernetes-preserve-unknown-fields: true
                             type: object
                           securityContext:
                             description: The security context for the SQL Server container.
                               The NET_BIND_SERVICE capability is added by default
                               in OpenShift clusters.
+                            nullable: true
                             properties:
                               allowPrivilegeEscalation:
                                 nullable: true
                                 type: boolean
+                              appArmorProfile:
+                                properties:
+                                  localhostProfile:
+                                    type: string
+                                  type:
+                                    type: string
+                                type: object
                               capabilities:
                                 properties:
                                   add:
@@ -2087,24 +2421,35 @@ spec:
                               accessModes:
                                 items:
                                   type: string
+                                nullable: true
                                 type: array
+                              metadata:
+                                nullable: true
+                                properties:
+                                  annotations:
+                                    additionalProperties:
+                                      type: string
+                                    nullable: true
+                                    type: object
+                                  labels:
+                                    additionalProperties:
+                                      type: string
+                                    nullable: true
+                                    type: object
+                                type: object
                               resources:
                                 properties:
-                                  claims:
-                                    items:
-                                      properties:
-                                        name:
-                                          type: string
-                                      type: object
-                                    type: array
                                   limits:
+                                    additionalProperties:
+                                      type: string
                                     type: object
-                                    x-kubernetes-preserve-unknown-fields: true
                                   requests:
+                                    additionalProperties:
+                                      type: string
                                     type: object
-                                    x-kubernetes-preserve-unknown-fields: true
                                 type: object
                               storageClassName:
+                                nullable: true
                                 type: string
                             type: object
                           volumeMounts:
@@ -2121,11 +2466,14 @@ spec:
                                 readOnly:
                                   nullable: true
                                   type: boolean
+                                recursiveReadOnly:
+                                  type: string
                                 subPath:
                                   type: string
                                 subPathExpr:
                                   type: string
                               type: object
+                            nullable: true
                             type: array
                         required:
                         - acceptEula
@@ -2133,15 +2481,25 @@ spec:
                         - mssqlSecret
                         type: object
                       nodeName:
+                        nullable: true
                         type: string
                       nodeSelector:
+                        additionalProperties:
+                          type: string
+                        nullable: true
                         type: object
-                        x-kubernetes-preserve-unknown-fields: true
                       securityContext:
-                        description: 'The pod''s security context. Default (Kubernetes):
-                          fsGroup: 10001; Default (OpenShift): fsGroupChangePolicy:
-                          OnRootMismatch'
+                        description: 'The pod''s security context. FsGroup must be
+                          set to 10001 for SQL Server. Default: fsGroup: 10001'
+                        nullable: true
                         properties:
+                          appArmorProfile:
+                            properties:
+                              localhostProfile:
+                                type: string
+                              type:
+                                type: string
+                            type: object
                           fsGroup:
                             format: int64
                             nullable: true
@@ -2159,6 +2517,8 @@ spec:
                             format: int64
                             nullable: true
                             type: integer
+                          seLinuxChangePolicy:
+                            type: string
                           seLinuxOptions:
                             properties:
                               level:
@@ -2180,8 +2540,12 @@ spec:
                           supplementalGroups:
                             items:
                               format: int64
+                              nullable: true
                               type: integer
+                            nullable: true
                             type: array
+                          supplementalGroupsPolicy:
+                            type: string
                           sysctls:
                             items:
                               properties:
@@ -2224,6 +2588,7 @@ spec:
                             value:
                               type: string
                           type: object
+                        nullable: true
                         type: array
                       topologySpreadConstraints:
                         items:
@@ -2268,6 +2633,7 @@ spec:
                             whenUnsatisfiable:
                               type: string
                           type: object
+                        nullable: true
                         type: array
                       volumes:
                         items:
@@ -2419,16 +2785,7 @@ spec:
                                           containerName:
                                             type: string
                                           divisor:
-                                            properties:
-                                              format:
-                                                enum:
-                                                - DecimalExponent
-                                                - BinarySI
-                                                - DecimalSI
-                                                type: string
-                                              value:
-                                                type: string
-                                            type: object
+                                            type: string
                                           resource:
                                             type: string
                                         type: object
@@ -2440,16 +2797,7 @@ spec:
                                 medium:
                                   type: string
                                 sizeLimit:
-                                  properties:
-                                    format:
-                                      enum:
-                                      - DecimalExponent
-                                      - BinarySI
-                                      - DecimalSI
-                                      type: string
-                                    value:
-                                      type: string
-                                  type: object
+                                  type: string
                               type: object
                             ephemeral:
                               properties:
@@ -2485,19 +2833,14 @@ spec:
                                           type: object
                                         resources:
                                           properties:
-                                            claims:
-                                              items:
-                                                properties:
-                                                  name:
-                                                    type: string
-                                                type: object
-                                              type: array
                                             limits:
+                                              additionalProperties:
+                                                type: string
                                               type: object
-                                              x-kubernetes-preserve-unknown-fields: true
                                             requests:
+                                              additionalProperties:
+                                                type: string
                                               type: object
-                                              x-kubernetes-preserve-unknown-fields: true
                                           type: object
                                         selector:
                                           properties:
@@ -2520,6 +2863,8 @@ spec:
                                               type: object
                                           type: object
                                         storageClassName:
+                                          type: string
+                                        volumeAttributesClassName:
                                           type: string
                                         volumeMode:
                                           type: string
@@ -2614,6 +2959,13 @@ spec:
                                 type:
                                   type: string
                               type: object
+                            image:
+                              properties:
+                                pullPolicy:
+                                  type: string
+                                reference:
+                                  type: string
+                              type: object
                             iscsi:
                               properties:
                                 chapAuthDiscovery:
@@ -2694,6 +3046,38 @@ spec:
                                 sources:
                                   items:
                                     properties:
+                                      clusterTrustBundle:
+                                        properties:
+                                          labelSelector:
+                                            properties:
+                                              matchExpressions:
+                                                items:
+                                                  properties:
+                                                    key:
+                                                      type: string
+                                                    operator:
+                                                      type: string
+                                                    values:
+                                                      items:
+                                                        type: string
+                                                      type: array
+                                                  type: object
+                                                type: array
+                                              matchLabels:
+                                                additionalProperties:
+                                                  type: string
+                                                type: object
+                                            type: object
+                                          name:
+                                            type: string
+                                          optional:
+                                            nullable: true
+                                            type: boolean
+                                          path:
+                                            type: string
+                                          signerName:
+                                            type: string
+                                        type: object
                                       configMap:
                                         properties:
                                           items:
@@ -2738,16 +3122,7 @@ spec:
                                                     containerName:
                                                       type: string
                                                     divisor:
-                                                      properties:
-                                                        format:
-                                                          enum:
-                                                          - DecimalExponent
-                                                          - BinarySI
-                                                          - DecimalSI
-                                                          type: string
-                                                        value:
-                                                          type: string
-                                                      type: object
+                                                      type: string
                                                     resource:
                                                       type: string
                                                   type: object
@@ -2912,27 +3287,63 @@ spec:
                                   type: string
                               type: object
                           type: object
+                        nullable: true
                         type: array
                     required:
                     - dxEnterpriseContainer
                     - mssqlServerContainer
                     type: object
+                  revisionHistoryLimit:
+                    format: int32
+                    nullable: true
+                    type: integer
+                  selector:
+                    nullable: true
+                    properties:
+                      matchExpressions:
+                        items:
+                          properties:
+                            key:
+                              type: string
+                            operator:
+                              type: string
+                            values:
+                              items:
+                                type: string
+                              type: array
+                          type: object
+                        type: array
+                      matchLabels:
+                        additionalProperties:
+                          type: string
+                        type: object
+                    type: object
+                  updateStrategy:
+                    nullable: true
+                    properties:
+                      rollingUpdate:
+                        properties:
+                          maxUnavailable:
+                            x-kubernetes-int-or-string: true
+                          partition:
+                            format: int32
+                            nullable: true
+                            type: integer
+                        type: object
+                      type:
+                        type: string
+                    type: object
+                  volumeClaimTemplates:
+                    items:
+                      type: object
+                      x-kubernetes-embedded-resource: true
+                      x-kubernetes-preserve-unknown-fields: true
+                    nullable: true
+                    type: array
                 type: object
             required:
-            - synchronousReplicas
-            type: object
-          status:
-            description: Status object for the entity.
-            properties:
-              status:
-                enum:
-                - Ready
-                - Deploying
-                - Error
-                type: string
+            - statefulSetSpec
             type: object
         type: object
     served: true
     storage: true
-    subresources:
-      status: {}

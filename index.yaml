@@ -6,6 +6,23 @@ entries:
       catalog.cattle.io/display-name: DxEnterprise for Microsoft SQL AG
       charts.openshift.io/name: DxEnterprise for Microsoft SQL AG
     apiVersion: v2
+    appVersion: "26.0"
+    created: "2026-03-16T09:57:26.825159-07:00"
+    description: Helm chart for DH2i's DxEnterprise clustering solution with SQL Server
+      availability groups
+    digest: 8eea47afa2b3006f60311caac176e5b83edb64e96608954d99535ad9bd518e4b
+    icon: https://raw.githubusercontent.com/dh2i/helm/main/assets/dh2i-logo.svg
+    kubeVersion: '>= 1.20.0-0'
+    name: dxemssql
+    type: application
+    urls:
+    - charts/dxemssql/dxemssql-1.1.1.tgz
+    version: 1.1.1
+  - annotations:
+      catalog.cattle.io/certified: partner
+      catalog.cattle.io/display-name: DxEnterprise for Microsoft SQL AG
+      charts.openshift.io/name: DxEnterprise for Microsoft SQL AG
+    apiVersion: v2
     appVersion: "23.0"
     created: "2025-03-03T06:42:31.1531818-08:00"
     description: Helm chart for DH2i's DxEnterprise clustering solution with SQL Server
@@ -148,10 +165,10 @@ entries:
       charts.openshift.io/name: DH2i SQL Server Combined Image
     apiVersion: v2
     appVersion: "23.0"
-    created: "2025-03-03T06:42:31.6059009-08:00"
+    created: "2026-03-16T09:57:27.3966027-07:00"
     description: Helm chart for DH2i's DxEnterprise image combined with SQL Server
       availability groups
-    digest: 252eced42e9dbb5d48523257861eedbe2af57fb936a481d3f5e166a54b882911
+    digest: 697be8a492a75b6f0b6ffa93564bb3befd2d9ba53abd14247073ea9178110369
     icon: https://raw.githubusercontent.com/dh2i/helm/main/assets/dh2i-logo.svg
     kubeVersion: '>= 1.20.0-0'
     name: dxemssql-combined
@@ -258,6 +275,22 @@ entries:
   dxenterprisesqlag:
   - annotations:
       catalog.cattle.io/certified: partner
+      catalog.cattle.io/display-name: DxOperator v1 - SQL Server AG (LEGACY)
+      charts.openshift.io/name: DxOperator v1 - SQL Server AG (LEGACY)
+    apiVersion: v2
+    appVersion: "26.0"
+    created: "2026-03-16T09:57:27.7700756-07:00"
+    description: SQL Server AGs using DH2i DxOperator (v1 LEGACY)
+    digest: d8d7b77aebcf7178487a35db587b3f6ab4a4d12cdceb9939a857d20454014dbe
+    icon: https://raw.githubusercontent.com/dh2i/helm/main/assets/DxOperator.svg
+    kubeVersion: '>= 1.26.0-0'
+    name: dxenterprisesqlag
+    type: application
+    urls:
+    - charts/dxenterprisesqlag/dxenterprisesqlag-1.0.4.tgz
+    version: 1.0.4
+  - annotations:
+      catalog.cattle.io/certified: partner
       catalog.cattle.io/display-name: DxOperator - DxEnterprise SQL AG
       charts.openshift.io/name: DxOperator - DxEnterprise SQL AG
     apiVersion: v2
@@ -320,6 +353,23 @@ entries:
     - charts/dxenterprisesqlag/dxenterprisesqlag-1.0.0.tgz
     version: 1.0.0
   dxoperator:
+  - annotations:
+      catalog.cattle.io/certified: partner
+      catalog.cattle.io/display-name: DxOperator v1 (LEGACY)
+      catalog.cattle.io/release-name: dxoperator
+      charts.openshift.io/name: DxOperator v1
+    apiVersion: v2
+    appVersion: 1.0.76.0
+    created: "2026-03-16T10:18:11.1093579-07:00"
+    description: DH2i operator for Kubernetes (v1 LEGACY)
+    digest: e11ef0d192db86c177d75a1dfe4b14bef6fc60b6019bc587e499611f1530624f
+    icon: https://raw.githubusercontent.com/dh2i/helm/main/assets/DxOperator.svg
+    kubeVersion: '>= 1.26.0-0'
+    name: dxoperator
+    type: application
+    urls:
+    - charts/dxoperator/dxoperator-1.0.5.tgz
+    version: 1.0.5
   - annotations:
       catalog.cattle.io/certified: partner
       catalog.cattle.io/display-name: DxOperator
@@ -402,4 +452,39 @@ entries:
     urls:
     - charts/dxoperator/dxoperator-1.0.0.tgz
     version: 1.0.0
-generated: "2025-07-28T12:26:25.4128668-07:00"
+  dxoperator-v2:
+  - annotations:
+      catalog.cattle.io/certified: partner
+      catalog.cattle.io/display-name: DxOperator
+      catalog.cattle.io/release-name: dxoperator-v2
+      charts.openshift.io/name: DxOperator
+    apiVersion: v2
+    appVersion: 2.0.85.0
+    created: "2026-03-16T09:57:28.6304073-07:00"
+    description: DH2i operator for Kubernetes
+    digest: 14d14e2ea2d17894bd08a33064d2134e6ad014667cf3821478bcd2a7771ff9a3
+    icon: https://raw.githubusercontent.com/dh2i/helm/main/assets/DxOperator.svg
+    kubeVersion: '>= 1.26.0-0'
+    name: dxoperator-v2
+    type: application
+    urls:
+    - charts/dxoperator-v2/dxoperator-v2-1.0.0.tgz
+    version: 1.0.0
+  dxsqlag:
+  - annotations:
+      catalog.cattle.io/certified: partner
+      catalog.cattle.io/display-name: DxOperator - SQL Server Availability Group
+      charts.openshift.io/name: DxOperator - SQL Server Availability Group
+    apiVersion: v2
+    appVersion: "26.0"
+    created: "2026-03-16T17:10:05.769643-07:00"
+    description: SQL Server Availability Groups using DH2i DxOperator
+    digest: f3103dafd5511d578b972a714562e03ad29d99c80ed6ecf5c78a2c65fb9d5f02
+    icon: https://raw.githubusercontent.com/dh2i/helm/main/assets/DxOperator.svg
+    kubeVersion: '>= 1.26.0-0'
+    name: dxsqlag
+    type: application
+    urls:
+    - charts/dxsqlag/dxsqlag-1.0.0.tgz
+    version: 1.0.0
+generated: "2026-03-16T17:10:05.769643-07:00"

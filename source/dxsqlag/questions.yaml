@@ -122,6 +122,13 @@ questions:
     default: false
     required: true
     group: "SQL Server"
+  - variable: sqlServerContainer.mssqlTcpPort
+    label: "TCP Port"
+    type: int
+    description: "TCP port on which SQL Server will listen for T-SQL connections"
+    default: 1433
+    required: false
+    group: "SQL Server"
   - variable: sqlServerContainer.repository
     label: "Repository"
     type: string

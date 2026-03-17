@@ -35,10 +35,10 @@ DxEnterprise clustering technology.
   (`DX_PASSKEY`), your DxEnterprise license key (`DX_LICENSE`), and
   optionally your one-time passkey (`DX_OTPK`)
 - Optional: DxAdmin installed on a Windows machine. Installation 
-  instructions for DxAdmin can be found in [DH2i documentation](https://support.dh2i.com/docs/v22.0/guides/dxenterprise/installation/dxadmin-qsg)
+  instructions for DxAdmin can be found in [DH2i documentation](https://support.dh2i.com/docs/v26.0/guides/dxenterprise/installation/dxadmin-qsg)
 
 ## Additional Information
 
-- To install using the Helm CLI: [Install DxE + SQL Server Helm Chart](https://support.dh2i.com/docs/v23.0/guides/dxenterprise/containers/kubernetes/mssql-ag-helm)
-- Instructions for installing this chart using Rancher can be found in the [DxEnterprise Rancher guide](https://support.dh2i.com/docs/v23.0/guides/dxenterprise/containers/kubernetes/mssql-ag-rancher#install-the-helm-chart), and additional DxEnterprise Kubernetes documentation can be found [here](https://support.dh2i.com/docs/v22.0/guides/dxenterprise/containers/kubernetes)
-- Before creating an Availability Group, reference SQL Server's [quorum considerations](https://support.dh2i.com/docs/v23.0/kbs/sql_server/availability_groups/quorum-considerations-for-sql-server-availability-groups) when determining the quantity of replicas to deploy
+- To install using the Helm CLI: [Install DxE + SQL Server Helm Chart](https://support.dh2i.com/docs/v26.0/guides/dxenterprise/containers/kubernetes/mssql-ag-helm)
+- Instructions for installing this chart using Rancher can be found in the [DxEnterprise Rancher guide](https://support.dh2i.com/docs/v26.0/guides/dxenterprise/containers/kubernetes/mssql-ag-rancher#install-the-helm-chart), and additional DxEnterprise Kubernetes documentation can be found [here](https://support.dh2i.com/docs/v22.0/guides/dxenterprise/containers/kubernetes)
+- Before creating an Availability Group, reference SQL Server's [quorum considerations](https://support.dh2i.com/docs/v26.0/kbs/sql_server/availability_groups/quorum-considerations-for-sql-server-availability-groups) when determining the quantity of replicas to deploy

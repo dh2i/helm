@@ -13,7 +13,7 @@ enableLoadBalancers: true
 serviceAccount: null
 
 # DxEnterprise settings
-# See https://support.dh2i.com/docs/v22.0/guides/dxenterprise/containers/building-dxemssql-qsg for building an image
+# See https://support.dh2i.com/docs/v26.0/guides/dxenterprise/containers/building-dxemssql-qsg for building an image
 repository: null
 pullPolicy: Always
 tag: latest

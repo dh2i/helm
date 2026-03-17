@@ -99,7 +99,7 @@
                     "properties": {
                         "DX_ACCEPT_EULA": {
                             "type": "boolean",
-                            "description": "Accept the terms of the DxEnterprise license agreement. For more information, visit http://support.dh2i.com/docs/other/eula."
+                            "description": "Accept the terms of the DxEnterprise license agreement. For more information, visit http://support.dh2i.com/other/eula."
                         },
                         "DX_VHOST_NAME": {
                             "type": [ "string", "null" ],

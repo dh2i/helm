@@ -1,13 +1,13 @@
 apiVersion: v2
 kubeVersion: ">= 1.26.0-0"
 name: dxoperator
-description: DH2i operator for Kubernetes
+description: DH2i operator for Kubernetes (v1 LEGACY)
 type: application
-version: 1.0.4
+version: 1.0.5
 appVersion: "1.0.76.0"
 icon: https://raw.githubusercontent.com/dh2i/helm/main/assets/DxOperator.svg
 annotations:
-  catalog.cattle.io/display-name: "DxOperator"
-  charts.openshift.io/name: "DxOperator"
+  catalog.cattle.io/display-name: "DxOperator v1 (LEGACY)"
+  charts.openshift.io/name: "DxOperator v1"
   catalog.cattle.io/release-name: dxoperator
   catalog.cattle.io/certified: partner

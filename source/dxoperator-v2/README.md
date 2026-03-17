@@ -7,7 +7,7 @@ To set up a SQL Server Availability Group within a Kubernetes cluster, you need 
 
 This DxOperator Helm chart represents the first step of this process.
 
-For additional details, please read our [DxOperator Helm Guide](https://support.dh2i.com/dxoperator/v1.0.76.0/guides/dxesqlag-helm).
+For additional details, please read our [DxOperator Helm Guide](https://support.dh2i.com/dxoperator/v2.0/guides/installation/helm).
 
 ## Deploy Highly Available SQL Server Containers 
 
@@ -41,4 +41,4 @@ Features:
   Availability Groups
 
 Instructions for installing and using this Helm chart can be found in
-the [DxOperator Helm Guide](https://support.dh2i.com/dxoperator/v1.0.76.0/guides/dxesqlag-helm).
+the [DxOperator Helm Guide](https://support.dh2i.com/dxoperator/v2.0/guides/installation/helm).

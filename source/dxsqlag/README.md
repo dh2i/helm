@@ -1,21 +1,15 @@
-# DxOperator v1 – DxEnterprise SQL AG 
-
-## Deprecation Notice
-
-DxOperator v1 has been superseded by DxOperator v2, which adds numerous manageability and stability features.
-Please consider performing all new deployments on DxOperator v2, and migrating any existing DxOperator v1
-deployments to v2.
+# DxOperator – SQL Server Availability Group
 
 ## Read First
 
 To set up a SQL Server Availability Group within a Kubernetes cluster, you need to:
 
-1. Set up DxOperator
-2. Implement DxEnterpriseSqlAg
+1. Set up DxOperator v2
+2. Implement DxSqlAg
 
-This DxEnterpriseSqlAg Helm chart represents the second step of this process.
+This DxSqlAg Helm chart represents the second step of this process.
  
-For additional details, please read our [DxOperator Helm Guide](https://support.dh2i.com/dxoperator/v1.0.76.0/guides/dxesqlag-helm).
+For additional details, please read our [DxOperator Helm Guide](https://support.dh2i.com/dxoperator/v2.0/guides/dxsqlag/create/helm).
 
 ## Deploy Highly Available SQL Server Containers 
 
@@ -48,10 +42,10 @@ Features:
 
 ## Prerequisites
 
-To create a DxEnterpriseSqlAg deployment, the following are required: 
+To create a DxSqlAg deployment, the following are required: 
 
 - DxOperator must be installed on your Kubernetes cluster – see the 
-  [DxOperator Helm Quick Start Guide](https://support.dh2i.com/dxoperator/v1.0.76.0/guides/dxesqlag-helm).
+  [DxOperator Helm Quick Start Guide](https://support.dh2i.com/dxoperator/v2.0/guides/dxsqlag/create/helm).
 - A DxEnterprise license key with Availability Group management features 
   and tunnels enabled -- [Request a free developer license](https://dh2i.com/dxoperator-sql-server-operator-for-kubernetes/)
 - Persistent volumes, for storing the SQL Server data
@@ -67,7 +61,7 @@ To create a DxEnterpriseSqlAg deployment, the following are required:
 ## Additional Information 
 
 - Instructions for installing and using this Helm chart can be found in the 
-  [DxOperator Helm Quick Start Guide](https://support.dh2i.com/dxoperator/v1.0.76.0/guides/dxesqlag-helm).
+  [DxOperator Helm Quick Start Guide](https://support.dh2i.com/dxoperator/v2.0/guides/dxsqlag/create/helm).
 - Before creating an Availability Group, reference SQL Server's
   [quorum considerations](https://support.dh2i.com/docs/v26.0/kbs/sql_server/availability_groups/quorum-considerations-for-sql-server-availability-groups)
   when determining the quantity of replicas to deploy
